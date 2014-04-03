@@ -1,0 +1,151 @@
+<script type="text/javascript">
+    var myDialogY = $(document).scrollTop();
+    $('.modal').css('top', myDialogY + 50);
+</script>
+
+<div class="modal-header">
+  <h3>{{action}} Beneficiary</h3>
+</div>
+<form name="editBeneForm">
+  <div class="modal-body" style="margin-top: -30px; margin-bottom: -20px">
+    <table class="dataTable noborder" style="width: 100%; border: 0">
+      <tbody>
+        <tr>
+          <td width="30%">&nbsp;
+          </td>
+          <td width="70%">&nbsp;
+          </td>
+        </tr>
+
+        <tr>
+          <td class="dataTableLabel">First Name:
+          </td>
+          <td>
+            <input data-ng-class="{validRequiredInput:editBeneForm.firstName.$valid || editBeneForm.firstName.$pristine}" type="text" name="firstName" data-ng-model="bene.FirstName" data-he-maxlength="40" data-ng-minlength="2" required="" data-he-alpha="" /><!--?data-regex-validate="/[^0-9]/" data-regex-validate-flags="i"/>-->
+            <span style="color: red" data-ng-show="editBeneForm.firstName.$dirty && editBeneForm.firstName.$error.required">Required</span>
+            <span style="color: red" data-ng-show="editBeneForm.firstName.$error.minlength">Too short</span>
+            <span style="color: red" data-ng-show="editBeneForm.firstName.$error.maxlength">Too long</span>
+            <span style="color: red" data-ng-show="editBeneForm.firstName.$error.alpha">Invalid name</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="dataTableLabel">Middle Name:
+          </td>
+          <td>
+            <input type="text" name="middleName" data-ng-model="bene.MiddleName" data-he-maxlength="40" data-he-alpha="">
+            <span style="color: red" data-ng-show="editBeneForm.middleName.$error.maxlength">Too long</span>
+            <span style="color: red" data-ng-show="editBeneForm.middleName.$error.alpha">Invalid name</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="dataTableLabel">Last Name:
+          </td>
+          <td>
+            <input class="requiredTextBox" data-ng-class="{validRequiredInput:editBeneForm.lastName.$valid  || editBeneForm.lastName.$pristine}" type="text" name="lastName" data-ng-model="bene.LastName" data-he-maxlength="40" data-ng-minlength="2" required="" data-he-alpha="" />
+            <span style="color: red" data-ng-show="editBeneForm.lastName.$dirty && editBeneForm.lastName.$error.required">Required</span>
+            <span style="color: red" data-ng-show="editBeneForm.lastName.$error.minlength">Too short</span>
+            <span style="color: red" data-ng-show="editBeneForm.lastName.$error.maxlength">Too long</span>
+            <span style="color: red" data-ng-show="editBeneForm.lastName.$error.alpha">Invalid name</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="dataTableLabel">Suffix:
+          </td>
+          <td>
+            <input class="input-mini" type="text" name="suffix" data-ng-model="bene.Suffix" data-he-maxlength="10" data-he-alpha="">
+            <span style="color: red" data-ng-show="editBeneForm.suffix.$error.maxlength">Too long</span>
+            <span style="color: red" data-ng-show="editBeneForm.suffix.$error.alpha">Invalid name</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="dataTableLabel">Birth Date:
+          </td>
+          <td>
+            <input data-ui-date="dateOptions" data-ui-date-format data-ng-model="bene.BirthDate" style="width: 100px;" placeholder="mm/dd/yyyy"><i class="icon-info-sign"></i></td>
+        </tr>
+        <tr>
+          <td class="dataTableLabel">Relationship:
+          </td>
+          <td>
+            <select class="input-small requiredDropDown" data-ng-model="bene.Relationship" required="">
+              <option value="Spouse">Spouse</option>
+              <option value="Child">Child</option>
+              <option value="Other">Other</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="dataTableLabel">SSN: </td>
+          <td>
+            <input class="input-small" type="text" name="ssn" data-ng-model="bene.MaskedTaxId" data-he-ssn="">
+            <span class="dataTableLabel">(NNN-NN-NNNN)</span><i class="icon-info-sign"></i>
+            <span style="color: red" data-ng-show="editBeneForm.ssn.$error.ssn">Invalid SSN</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="dataTableLabel">&nbsp;
+          </td>
+          <td>
+            <label class="checkbox">
+              <input type="checkbox" data-ng-model="bene.IsAddressSameAsMember">Use the same address of the member.</label>
+          </td>
+        </tr>
+        <tr data-ng-hide="bene.IsAddressSameAsMember">
+          <td class="dataTableLabel">Street Address:
+          </td>
+          <td>
+            <input type="text" data-ng-model="bene.Address.Street1" name="address1" data-he-maxlength="100"><i class="icon-info-sign"></i>
+            <span style="color: red" data-ng-show="editBeneForm.address1.$error.maxlength">Too long</span>
+          </td>
+        </tr>
+        <tr data-ng-hide="bene.IsAddressSameAsMember">
+          <td class="dataTableLabel">&nbsp;
+          </td>
+          <td>
+            <input type="text" data-ng-model="bene.Address.Street2" name="address2" data-he-maxlength="100">
+            <span style="color: red" data-ng-show="editBeneForm.address2.$error.maxlength">Too long</span>
+          </td>
+        </tr>
+        <tr data-ng-hide="bene.IsAddressSameAsMember">
+          <td class="dataTableLabel">City:
+          </td>
+          <td>
+            <input type="text" data-ng-model="bene.Address.City" name="city" data-he-maxlength="100" data-he-alpha="" />
+            <span style="color: red" data-ng-show="editBeneForm.city.$error.maxlength">Too long</span>
+            <span style="color: red" data-ng-show="editBeneForm.city.$error.alpha">Invalid name</span>
+          </td>
+        </tr>
+        <tr data-ng-hide="bene.IsAddressSameAsMember">
+          <td class="dataTableLabel">State:
+          </td>
+          <td>
+            <select class="input-mini" data-ng-model="bene.Address.State" data-ng-options="s for s in states" />
+          </td>
+        </tr>
+        <tr data-ng-hide="bene.IsAddressSameAsMember">
+          <td class="dataTableLabel">Zip Code:
+          </td>
+          <td>
+            <input type="text" data-ng-model="bene.Address.PostalCode" name="postalCode" data-ng-maxlength="12" data-he-postal-code="">
+            <span style="color: red" data-ng-show="editBeneForm.postalCode.$error.maxlength">Too long</span>
+            <span style="color: red" data-ng-show="editBeneForm.postalCode.$error.postalCode">Invalid input</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-footer">
+    <div style="float: left; font-size: 11px">
+      <i class="icon-info-sign"></i>&nbsp;The Birth Date, SSN, and Address are required before a payment can be issued.
+    </div>
+    <br />
+    <br />
+    <div style="font-size: 11px; padding-right: 10px; color: red; text-align: right; width: 350px; display: inline">
+      <span data-ng-show="haveError">{{errorMessage}}</span>
+    </div>
+    <button type="submit" data-ng-click="ok(bene)" class="btn btn-primary" data-ng-disabled="editBeneForm.$invalid || editBeneForm.$pristine">OK</button>
+    <button data-ng-click="cancel()" class="btn">Cancel</button>
+  </div>
+</form>
