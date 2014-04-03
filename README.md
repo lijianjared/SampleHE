@@ -1,5 +1,4 @@
 sample code for beneficiary designation(implemented it with MVC + Angular)
-
 1. Client side Angular JS code:
 	1.1> Angular-BeneApp.js
 	1.2> Angular-BeneDirectives.js
