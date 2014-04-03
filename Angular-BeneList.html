@@ -1,0 +1,67 @@
+<style>
+  i {
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+
+  .percentageTotal {
+    text-align: right;
+    padding-right: 25px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .invalidTotal {
+    color: crimson;
+  }
+</style>
+
+<form name="beneficiariesForm">
+  <div style="margin-bottom: 10px">
+    At the time of your death, if any of the named beneficiaries are minors, a guardian must hold and manage the money until the beneficiary reaches the age of majority or a court must order us to pay the minor. Your estate may incur additional legal and other expenses to appoint a guardian for the minor beneficiary. For specific legal implications regarding beneficiary designations, contact your legal advisor.
+  </div>
+  <button type="button" class="btn" style="margin: 0 5px 3px 0;" data-ng-click="editBeneDialog()"><i class="icon-plus"></i>Add Beneficiary</button>
+  <button type="button" class="btn" style="margin: 0 5px 3px 0;" data-ng-click="editTrustDialog()"><i class="icon-plus"></i>Add Trust or Estate</button>
+  <table style="width: 600px">
+    <thead>
+      <tr class="dataTableHeader">
+        <td style="width: 13%"></td>
+        <td>Name</td>
+        <td style="width: 15%; text-align: center">Relationship</td>
+        <td style="width: 15%; text-align: right">Primary %</td>
+        <td style="width: 15%; text-align: right">Contingent %</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="listRowItems" data-ng-repeat="bene in beneficiaries">
+        <td>
+          <i class="icon-pencil" title="Edit" data-ng-click="edit(bene)"></i>
+          <i class="icon-remove-sign" title="Delete" data-ng-click="deleteBeneficiary(bene)"></i>
+        </td>
+        <td>{{beneName(bene)}}</td>
+        <td style="text-align: center">{{bene.Relationship}}</td>
+        <td style="text-align: right">
+          <input type="number" class="input-mini" style="text-align: right" data-ng-model="bene.PrimaryPercentage" data-ng-maxlength="3" min="0" max="100" data-ng-disabled="disablePrimaryInput(bene)" data-he-percentage="" /></td>
+        <td style="text-align: right">
+          <input type="number" class="input-mini" style="text-align: right" data-ng-model="bene.SeconaryPercentage" data-ng-maxlength="3" min="0" max="100" data-ng-disabled="disableContingentInput(bene)" data-he-percentage="" /></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" style="text-align: right">
+          <span class="invalidTotal" data-ng-show="hasMoreThanOneSpouse()">There can be only one beneficiary designation of spouse.</span>
+          <span class="invalidTotal" data-ng-show="hasBeneficiariesWithDuplicateTaxId() && !hasMoreThanOneSpouse()">The same SSN or Tax Id was entered for more than one beneficiary</span>
+          <span class="invalidTotal" data-ng-show="!isPrimaryTotalValid() && !hasMoreThanOneSpouse() && !hasBeneficiariesWithDuplicateTaxId()">Primary designations must total 100%.</span>
+          <span class="invalidTotal" data-ng-show="isPrimaryTotalValid() && !isContingentTotalValid() && !hasMoreThanOneSpouse() && !hasBeneficiariesWithDuplicateTaxId()">Contingent designations must total 100% or zero.</span>
+        </td>
+        <td class="percentageTotal" data-ng-class="{invalidTotal:!isPrimaryTotalValid()}">{{totalPrimary()}}</td>
+        <td class="percentageTotal" data-ng-class="{invalidTotal:!isContingentTotalValid()}">{{totalContingent()}}</td>
+      </tr>
+
+    </tfoot>
+  </table>
+  <br />
+  <button data-he-click="save(beneficiaries)" class="btn btn-primary" data-ng-disabled="beneficiariesForm.$invalid || isInputInvalidForSave() || (beneficiariesForm.$pristine && !beneficiaryEdited)">Save</button>
+  <input type="button" class="btn" data-ng-click="cancel()" value="Cancel" />
+</form>
+
