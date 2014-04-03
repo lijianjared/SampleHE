@@ -1,0 +1,40 @@
+@{
+  ViewBag.Title = "Beneficiaries";
+}
+
+@section styles
+{
+  @Styles.Render("~/Content/bootstrap/css")
+  <link rel="stylesheet" href="~/Apps/Member/Beneficiaries/css/Beneficiaries.css" type="text/css" />
+}
+
+@section scripts
+{
+  <script>
+    // allowing the server to set the root URL for the site, which is used by the client JavaScript code for server requests.
+    var heNS = heNS || {};
+    heNS.isMemberServices = @Html.Raw(Json.Encode(@ViewBag.IsMemberServices));
+    heNS.beneficiaryDesignation = @Html.Raw(ViewBag.BeneficiaryDesignation);
+    heNS.beneficiaryDesignationHistory = @Html.Raw(ViewBag.BeneficiaryDesignationHistory);
+    heNS.states = @Html.Raw(Json.Encode(@ViewBag.States));
+  </script>
+
+  @Scripts.Render("~/bundles/uibootstrap")
+
+  <script src="~/Apps/Member/Beneficiaries/js/BeneApp.js" type="text/javascript"></script>
+  <script src="~/Apps/Member/Beneficiaries/js/BeneServices.js" type="text/javascript"></script>
+  <script src="~/Apps/Member/Beneficiaries/js/BeneDirectives.js" type="text/javascript"></script>
+  <script src="~/Apps/Member/Beneficiaries/js/Filters.js" type="text/javascript"></script>
+
+  <script src="~/Apps/Member/Beneficiaries/js/Controllers/NotificationController.js" type="text/javascript"></script>
+  <script src="~/Apps/Member/Beneficiaries/js/Controllers/ListController.js" type="text/javascript"></script>
+  <script src="~/Apps/Member/Beneficiaries/js/Controllers/EditBeneDialogController.js" type="text/javascript"></script>
+  <script src="~/Apps/Member/Beneficiaries/js/Controllers/EditTrustDialogController.js" type="text/javascript"></script>
+  <script src="~/Apps/Member/Beneficiaries/js/Controllers/DeleteConfirmationDialogController.js" type="text/javascript"></script>
+}
+
+<div id="ng-app" data-ng-app="BeneApp">
+  <div data-ng-cloak="" data-ng-view="">
+  </div>
+</div>
+
